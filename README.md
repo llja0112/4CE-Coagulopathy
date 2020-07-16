@@ -7,3 +7,7 @@
 ## R scripts
 - R scripts for basic analysis can be found in the root folder
 
+## Requirements
+- dplyr
+- glm2
+

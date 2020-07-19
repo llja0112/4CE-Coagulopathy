@@ -3,6 +3,10 @@ library('dplyr')
 data <- read.csv('sample/data.csv')
 labs_data <- read.csv('sample/labs_data.csv')
 
+for(i in 1:ncol(data)){
+	data[i][is.na(data[i])] <- round(mean(data[i], na.rm = TRUE))
+}
+
 # Create 
 PT_summary_data <- labs_data %>%
 	filter(Test.Name == 'Prothrombin Time') %>%

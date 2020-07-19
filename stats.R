@@ -1,0 +1,38 @@
+# Stats for different 
+data$outcome = as.integer(data$outcome)
+
+print('Fibrinogen Ratio by outcomes')
+stats = summary(subset(data, outcome == TRUE)$fibrinogen_ratio)
+print(stats)
+stats = summary(subset(data, outcome == FALSE)$fibrinogen_ratio)
+print(stats)
+print('')
+
+print('D-Dimer Ratio by outcomes')
+stats = summary(subset(data, outcome == TRUE)$ddimer_ratio)
+print(stats)
+stats = summary(subset(data, outcome == FALSE)$ddimer_ratio)
+print(stats)
+print('')
+
+print('Outcomes by Anticoagulation Medications')
+stats = summary(subset(data, Anticoagulation.Medications == TRUE)$outcome)
+print(stats)
+stats = summary(subset(data, Anticoagulation.Medications == FALSE)$outcome)
+print(stats)
+print('')
+
+print('Outcomes by Inotropic Medications')
+stats = summary(subset(data, Inotropic.Medications == TRUE)$outcome)
+print(stats)
+stats = summary(subset(data, Inotropic.Medications == FALSE)$outcome)
+print(stats)
+print('')
+
+print('Outcomes by Lopinavir Rotinavir')
+print('')
+stats = summary(subset(data, Lopinavir.rotinavir == TRUE)$outcome)
+print(stats)
+stats = summary(subset(data, Lopinavir.rotinavir == FALSE)$outcome)
+print(stats)
+print('')

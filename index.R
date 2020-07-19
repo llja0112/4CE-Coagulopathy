@@ -30,3 +30,4 @@ data = merge(data, PT_summary_data, by='Patient.Identifier')
 data = merge(data, APTT_summary_data, by='Patient.Identifier')
 data = merge(data, DDimer_summary_data, by='Patient.Identifier')
 data = merge(data, fibrinogen_summary_data, by='Patient.Identifier')
+

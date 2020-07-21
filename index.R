@@ -1,4 +1,4 @@
-library('dplyr')
+library('tidyverse')
 
 data <- read.csv('sample/data.csv')
 labs_data <- read.csv('sample/labs_data.csv')
@@ -6,6 +6,14 @@ labs_data <- read.csv('sample/labs_data.csv')
 for(i in 1:ncol(data)){
 	data[i][is.na(data[i])] <- round(mean(data[i], na.rm = TRUE))
 }
+
+get_timediff <- function(datetime){
+  
+}
+
+labs_data %>%
+  group_by(Patient.Identifier, Test.Name) %>%
+  mutate( Test.Timediff = tibble(Test.Datetime) %>% get_timediff )
 
 # Create 
 PT_summary_data <- labs_data %>%
@@ -32,4 +40,3 @@ data = merge(data, PT_summary_data, by='Patient.Identifier')
 data = merge(data, APTT_summary_data, by='Patient.Identifier')
 data = merge(data, DDimer_summary_data, by='Patient.Identifier')
 data = merge(data, fibrinogen_summary_data, by='Patient.Identifier')
-

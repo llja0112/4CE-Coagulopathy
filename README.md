@@ -12,11 +12,11 @@
 - glm2
 
 ## data column names
+Column names
 
 ## Script instructions
 Run the scripts in the following order:
-1. `source('index.R')`  
-1. `source('process.R')`  
-1. `source('model.R')`  
-1. `source('stats.R')`  
-
+1. `source('index.R')`
+1. `source('process.R')`
+1. `source('model.R')`
+1. `source('stats.R')`

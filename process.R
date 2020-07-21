@@ -13,4 +13,3 @@ fibrinogen_ratio <- function(fibrinogen_max, fibrinogen_min){
 
 data$fibrinogen_ratio <- mapply(fibrinogen_ratio, data$max_fibrinogen, data$min_fibrinogen)
 data$ddimer_ratio <- mapply(ddimer_ratio, data$max_DDimer, data$min_DDimer)
-

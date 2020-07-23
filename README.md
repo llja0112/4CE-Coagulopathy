@@ -8,11 +8,12 @@
 - R scripts for basic analysis can be found in the root folder
 
 ## Requirements
-- dplyr
-- glm2
+- tidyverse
+- statmod
 
 ## data column names
-Column names
+Column names:
+
 
 ## Script instructions
 Run the scripts in the following order:

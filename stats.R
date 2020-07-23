@@ -1,4 +1,4 @@
-# Stats for different 
+# Stats for different
 data$outcome = as.integer(data$outcome)
 
 print('Fibrinogen Ratio by outcomes')

@@ -1,21 +1,38 @@
-library('tidyverse')
+library('dplyr')
 
 data <- read.csv('sample/data.csv')
 labs_data <- read.csv('sample/labs_data.csv')
 
-for(i in 1:ncol(data)){
-	data[i][is.na(data[i])] <- round(mean(data[i], na.rm = TRUE))
+labs_data <- subset(labs_data, Short.Text == 'Prothrombin Time' | Short.Text == 'Activated Partial Thromboplastin Time' | Short.Text == 'D-Dimer' | Short.Text == 'Fibrinogen')
+
+# ---
+# Comment out this section of the code if your test value is
+# already cleaned and in the double format.
+# ---
+
+process_data <- function(x){
+	x <- gsub(' ', '', x)
+	x <- gsub('>', '', x)
+	if(substring(x, 0, 1) == '<'){
+		x <- 0
+	}
+	x <- as.numeric(x)
+	if(is.na(x)){
+		return(0)
+	}else{
+		return(x)
+	}
 }
 
-get_timediff <- function(datetime){
-  
-}
+temp <- lapply(labs_data$Test.Value, process_data)
+temp <- as.numeric(paste(temp))
+labs_data$Test.Value = temp
 
-labs_data %>%
-  group_by(Patient.Identifier, Test.Name) %>%
-  mutate( Test.Timediff = tibble(Test.Datetime) %>% get_timediff )
+# ---
+# End of code section
+# ---
 
-# Create 
+# Create
 PT_summary_data <- labs_data %>%
 	filter(Test.Name == 'Prothrombin Time') %>%
 	group_by(Patient.Identifier) %>%
@@ -36,7 +53,9 @@ fibrinogen_summary_data <- labs_data %>%
 	group_by(Patient.Identifier) %>%
 	summarise(mean_fibrinogen = mean(Test.Value), min_fibrinogen = min(Test.Value), max_fibrinogen = max(Test.Value))
 
-data = merge(data, PT_summary_data, by='Patient.Identifier')
-data = merge(data, APTT_summary_data, by='Patient.Identifier')
-data = merge(data, DDimer_summary_data, by='Patient.Identifier')
-data = merge(data, fibrinogen_summary_data, by='Patient.Identifier')
+coag_patient_summary = patient_summary[patient_summary$patient_id %in% unique(labs_data$Patient.Identifier)]
+
+data <- merge(coag_patient_summary, PT_summary_data, by.x='patient_id', by.y='Patient.Identifier', all.x=TRUE)
+data <- merge(data, APTT_summary_data, by.x='patient_id', by.y='Patient.Identifier', all.x=TRUE)
+data <- merge(data, DDimer_summary_data, by.x='patient_id', by.y='Patient.Identifier', all.x=TRUE)
+data <- merge(data, fibrinogen_summary_data, by.x='patient_id', by.y='Patient.Identifier', all.x=TRUE)
